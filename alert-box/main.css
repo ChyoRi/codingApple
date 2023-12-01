@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.alert-box {
+  display: none;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: skyblue;
+  color: #fff;
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="black-bg">
+    <div class="white-bg">
+      <h4>로그인하세요</h4>
+      <form action="success.html">
+        <div class="my-3">
+          <input type="text" class="form-control" id="email">
+         </div>
+         <div class="my-3">
+           <input type="password" class="form-control" id="pw">
+         </div>
+         <button type="submit" id="send" class="btn btn-primary" >전송</button>
+         <button type="button" class="btn btn-danger" id="close">닫기</button>
+      </form> 
+    </div>
+  </div> 
+
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand">JSShop</span>
+      <div>
+        <span class="badge bg-dark">Dark 🔄</span>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <ul class="list-group">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+    <li class="list-group-item">A fourth item</li>
+    <li class="list-group-item">And a fifth one</li>
+  </ul>
+
+  <div class="main-bg">
+    <h4>Shirts on sale</h4>
+    <button id="login" class="btn btn-danger">로그인</button>
+  </div>
+
+  <div class="alert alert-danger">
+    <span class="count"></span>초 이내 구매시 사은품 증정!
+  </div>
+
+  <div style="overflow: hidden;">
+    <div class="slide-container">
+      <div class="slide-box">
+        <img src="./images/car1.png" alt="첫 번째 이미지">
+      </div>
+      <div class="slide-box">
+        <img src="./images/car2.png" alt="두 번째 이미지">
+      </div>
+      <div class="slide-box">
+        <img src="./images/car3.png" alt="세 번째 이미지">
+      </div>
+    </div>
+  </div>
+
+  <button class="slide-1">1</button>
+  <button class="slide-2">2</button>
+  <button class="slide-3">3</button>
+  <button class="prev">이전</button>
+  <button class="next">다음</button>
+
+  <div class="terms" style="width: 200px; height: 100px; overflow-y: scroll;">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae voluptas voluptatum minus praesentium fugit debitis at, laborum ipsa itaque placeat sit, excepturi eius. Nostrum perspiciatis, eligendi quae consectetur praesentium exercitationem.
+  </div>
+
+  <div style="height: 1000px"></div>
+
+
+</body>
+<script>
+  document.getElementById('login').addEventListener('click', () => {
+    document.querySelector('.black-bg').classList.add('show-modal');
+  });
+
+  document.getElementsByClassName('black-bg')[0].addEventListener('click', (e) => {
+    if (e.target == document.getElementsByClassName('black-bg')[0]) {
+      document.getElementsByClassName('black-bg')[0].classList.remove('show-modal');
+    }
+  });
+
+  document.getElementById('close').addEventListener('click', () => {
+    document.getElementsByClassName('black-bg')[0].classList.remove('show-modal');
+  });
+
+  const validation = (e) => {
+    let idValue = document.querySelector('#email').value;
+    let pwValue = document.querySelector('#pw').value;
+    console.log(idValue);
+    if (!idValue) {
+      alert('아이디를 입력해 주세요.');
+      e.preventDefault();
+    }
+    if (!/(\S+\@\S+\.\S+)/.test(idValue)) {
+      alert('이메일 형식이 아닙니다.');
+      e.preventDefault();
+    }
+    if (idValue.length < 6) {
+      alert('6자 이상 입력해 주세요.');
+      e.preventDefault();
+    }
+    if (!/[A-Z]/.test(pwValue)) {
+      alert('비밀번호에 적어도 대문자 1개를 넣어주세요.');
+      e.preventDefault();
+    }
+  }
+
+  document.querySelector('form').addEventListener('submit', validation);
+
+  let count = 0;
+  const darkBtn = document.querySelector('.bg-dark');
+  
+  darkBtn.addEventListener('click', () => {
+    count += 1;
+    
+    if (count % 2 == 0) {
+      darkBtn.innerText = 'Dark 🔄';
+      darkBtn.classList.remove('bg-white');
+      darkBtn.classList.add('bg-dark');
+    } else {
+      darkBtn.innerText = 'Light 🔄';
+      darkBtn.classList.remove('bg-dark');
+      darkBtn.classList.add('bg-white');
+    }
+  });
+
+  // setTimeout(() => {
+  //   document.getElementsByClassName('alert-danger')[0].style.display = 'none';
+  // },1000)
+
+  // const countTxt = document.querySelector('.count');
+  // const alertBox = document.querySelector('.alert-danger');
+
+  // let shCount = 5;
+
+  // const countDown = () => {
+    
+  //   if (shCount == 0) {
+  //     alertBox.style.display = 'none';
+  //     clearInterval(clear);
+  //   } else if (shCount >= 0) {
+  //     countTxt.innerText = shCount;
+  //   }
+    
+  //   shCount -= 1;
+  // }
+
+  // countDown();
+  // let clear = setInterval(countDown, 1000);
+
+  const countTxt = document.querySelector(".count");
+  const alertBox = document.querySelector(".alert-danger");
+
+  const delay = (s) => {
+    return new Promise((good) => {
+      setTimeout(() => good(), s);
+    });
+  };
+
+  const countDown = async (s) => {
+    if (!s) return (alertBox.style.display = "none");
+    countTxt.innerText = s;
+    await delay(1000);
+    countDown(s - 1);
+  };
+
+  countDown(5);
+
+  let slideCount = 0;
+
+  const slideContainer = document.querySelector('.slide-container');
+  const slideBtn1 = document.querySelector('.slide-1');
+  const slideBtn2 = document.querySelector('.slide-2');
+  const slideBtn3 = document.querySelector('.slide-3');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+
+  slideBtn1.addEventListener('click', function(){
+    slideCount = 0;
+    slideContainer.style.translate = '0 0';
+  });
+
+  slideBtn2.addEventListener('click', function(){
+    slideCount = 1;
+    slideContainer.style.translate = `${slideCount * -100}vw 0`;
+  });
+
+  slideBtn3.addEventListener('click', function(){
+    slideCount = 2;
+    slideContainer.style.translate = `${slideCount * -100}vw 0`;
+  });
+
+  prevBtn.addEventListener('click', function() {
+    slideCount -= 1;
+    slideContainer.style.translate = `${slideCount * -100}vw 0`;
+    if (slideCount < 0) {
+      slideContainer.style.translate = '-200vw 0';
+      slideCount = 3;
+    }
+  })
+
+  nextBtn.addEventListener('click', function(){
+    slideCount += 1;
+    slideContainer.style.translate = `${slideCount * -100}vw 0`;
+    if (slideCount === 3) {
+      slideContainer.style.translate = '0 0';
+      slideCount = 0;
+    }
+  });
+
+  window.addEventListener('scroll', function(){
+    if(window.scrollY >= 100) {
+      document.querySelector('.navbar-brand').style.fontSize = '16px';
+    } else {
+      document.querySelector('.navbar-brand').style.fontSize = '30px';
+    }
+  });
+  
+  const terms = document.querySelector('.terms');
+
+  terms.addEventListener('scroll', function(){
+    let termsScrollTop = terms.scrollTop;
+    let termsScrollHeight = terms.scrollHeight;
+    let termsClientHeight = terms.clientHeight;
+    console.log(termsScrollTop, termsScrollHeight, termsClientHeight);
+    if (termsScrollTop + termsClientHeight == termsScrollHeight) {
+      alert('더 이상 내릴수 없습니다.');
+    }
+  });
+
+  
+  
+</script>
+</html>
