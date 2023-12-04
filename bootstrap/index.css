@@ -72,3 +72,7 @@
 .slide-box img {
   width: 100%;
 }
+
+.p-3 {
+  flex-direction: row !important;
+}
