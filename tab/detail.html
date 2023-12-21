@@ -42,6 +42,15 @@
     display: none;
     padding: 10px;
   }
+
+  .shirt-size {
+    display: none;
+  }
+
+  .pants-size {
+    display: none;
+  }
+
   .show {
     display: block;
   }
@@ -68,6 +77,25 @@
       <p>배송정보입니다. Shipping</p>
     </div>
   </div>
+
+  <form class="container my-5 form-group">
+    <p>상품선택</p>
+    <select class="form-select mt-4">
+      <option value="hat">모자</option>
+      <option value="shirt">셔츠</option>
+      <option value="pants">바지</option>
+    </select>
+    <select class="form-select mt-2 shirt-size">
+      <option>95</option>
+      <option>100</option>
+      <option>105</option>
+    </select>
+    <select class="form-select mt-2 pants-size">
+
+    </select>
+  </form>
+
+  <div id="test"></div>
 </body>
 <script src="./tab.js"></script>
 </html>
