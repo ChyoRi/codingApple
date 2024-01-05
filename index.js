@@ -80,3 +80,50 @@ console.log(mschange(1,30));
 const discount = (place, isFirst) => place * 0.9 - (isFirst ? 1.5 : 0);
 
 console.log(discount(70,true));
+
+/* level 3 array, for 반복문 실력향상 과제 Q1 */
+
+var 출석부 = ['흥민', '영희', '철수', '재석'];
+
+function 이름찾기(find) {
+  출석부.forEach(item => {
+    if(find == item) {
+      console.log('있어요');
+    }
+  });
+}
+
+이름찾기('흥민');
+
+/* level 3 array, for 반복문 실력향상 과제 Q2 */
+
+for(let i = 1; i < 10; i++) {
+  for(let j = 1; j < 10; j++) {
+    console.log(i + 'X' + j + '=' + i*j);
+  }
+}
+
+/* level 3 array, for 반복문 실력향상 과제 Q3 */
+
+function average(first, second) {
+  let sum = 0;
+  let result = 0;
+
+  first.forEach(item => {
+    sum += item
+  });
+
+  result = sum / first.length;
+  
+  if(result > second) {
+    let minus = result - second;
+    console.log(`평균보다 ${minus}점이 올랐네요`);
+  } else if (result === second) {
+    console.log('평균과 점수가 똑같네요');
+  } else {
+    let minus = second - result;
+    console.log(`평균보다 ${minus}점이 떨어졌네요 재수추천`);
+  }
+}
+
+average([10,20,30], 40);
