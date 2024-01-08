@@ -9,7 +9,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="black-bg">
+
+  <!-- 스크롤 진척도 -->
+  <div class="page-progress"></div>
+
+  <!-- 팝업 -->
+  <!-- <div class="black-bg">
     <div class="white-bg">
       <h4>로그인하세요</h4>
       <form action="success.html">
@@ -23,7 +28,25 @@
          <button type="button" class="btn btn-danger" id="close">닫기</button>
       </form> 
     </div>
-  </div> 
+  </div> -->
+
+  <!-- 팝업 -->
+  <div class="modal-frame">
+    <div class="black-bg"></div>
+    <div class="white-bg">
+      <h4>로그인하세요</h4>
+      <form action="success.html">
+        <div class="my-3">
+          <input type="text" class="form-control" id="email">
+         </div>
+         <div class="my-3">
+           <input type="password" class="form-control" id="pw">
+         </div>
+         <button type="submit" id="send" class="btn btn-primary" >전송</button>
+         <button type="button" class="btn btn-danger" id="close">닫기</button>
+      </form> 
+    </div>
+  </div>
 
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
@@ -74,7 +97,7 @@
   <button class="prev">이전</button>
   <button class="next">다음</button>
 
-  <div class="terms" style="width: 200px; height: 100px; overflow-y: scroll;">
+  <div class="terms">
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae voluptas voluptatum minus praesentium fugit debitis at, laborum ipsa itaque placeat sit, excepturi eius. Nostrum perspiciatis, eligendi quae consectetur praesentium exercitationem.
   </div>
 
@@ -83,15 +106,23 @@
 
 </body>
 <script>
-  document.getElementById('login').addEventListener('click', () => {
-    document.querySelector('.black-bg').classList.add('show-modal');
+  document.getElementsByClassName('navbar-toggler')[0].addEventListener('click', () => {
+    document.querySelector('.list-group').classList.toggle('show');
   });
 
-  document.getElementsByClassName('black-bg')[0].addEventListener('click', (e) => {
-    if (e.target == document.getElementsByClassName('black-bg')[0]) {
-      document.getElementsByClassName('black-bg')[0].classList.remove('show-modal');
-    }
+  document.getElementById('login').addEventListener('click', () => {
+    document.querySelector('.modal-frame').classList.add('show-modal');
   });
+
+  document.querySelector('.black-bg').addEventListener('click', () => {
+    document.querySelector('.modal-frame').classList.remove('show-modal');
+  });
+
+  // document.getElementsByClassName('black-bg')[0].addEventListener('click', (e) => {
+  //   if (e.target == document.getElementsByClassName('black-bg')[0]) {
+  //     document.getElementsByClassName('black-bg')[0].classList.remove('show-modal');
+  //   }
+  // });
 
   document.getElementById('close').addEventListener('click', () => {
     document.getElementsByClassName('black-bg')[0].classList.remove('show-modal');
@@ -142,43 +173,43 @@
   //   document.getElementsByClassName('alert-danger')[0].style.display = 'none';
   // },1000)
 
-  // const countTxt = document.querySelector('.count');
-  // const alertBox = document.querySelector('.alert-danger');
+  const countTxt = document.querySelector('.count');
+  const alertBox = document.querySelector('.alert-danger');
 
-  // let shCount = 5;
+  let shCount = 5;
 
-  // const countDown = () => {
+  const countDown = () => {
     
-  //   if (shCount == 0) {
-  //     alertBox.style.display = 'none';
-  //     clearInterval(clear);
-  //   } else if (shCount >= 0) {
-  //     countTxt.innerText = shCount;
-  //   }
+    if (shCount == 0) {
+      alertBox.style.display = 'none';
+      clearInterval(clear);
+    } else if (shCount >= 0) {
+      countTxt.innerText = shCount;
+    }
     
-  //   shCount -= 1;
-  // }
+    shCount -= 1;
+  }
 
-  // countDown();
-  // let clear = setInterval(countDown, 1000);
+  countDown();
+  let clear = setInterval(countDown, 1000);
 
-  const countTxt = document.querySelector(".count");
-  const alertBox = document.querySelector(".alert-danger");
+  // const countTxt = document.querySelector(".count");
+  // const alertBox = document.querySelector(".alert-danger");
 
-  const delay = (s) => {
-    return new Promise((good) => {
-      setTimeout(() => good(), s);
-    });
-  };
+  // const delay = (s) => {
+  //   return new Promise((good) => {
+  //     setTimeout(() => good(), s);
+  //   });
+  // };
 
-  const countDown = async (s) => {
-    if (!s) return (alertBox.style.display = "none");
-    countTxt.innerText = s;
-    await delay(1000);
-    countDown(s - 1);
-  };
+  // const countDown = async (s) => {
+  //   if (!s) return (alertBox.style.display = "none");
+  //   countTxt.innerText = s;
+  //   await delay(1000);
+  //   countDown(s - 1);
+  // };
 
-  countDown(5);
+  // countDown(5);
 
   let slideCount = 0;
 
@@ -222,13 +253,31 @@
     }
   });
 
-  window.addEventListener('scroll', function(){
+  const progressBar = document.querySelector('.page-progress');
+  const page = document.querySelector('html');
+  const nav = document.querySelector('.navbar');
+  const logo = document.querySelector('.navbar-brand');
+
+  const scrollEvent = () => {
+    const windowInsideHeight = window.innerHeight;
+    const pageHeight = page.scrollHeight;
+    
     if(window.scrollY >= 100) {
-      document.querySelector('.navbar-brand').style.fontSize = '16px';
+      logo.style.fontSize = '16px';
+      nav.style.position = 'fixed';
+      progressBar.classList.add('page-progress-active');
     } else {
-      document.querySelector('.navbar-brand').style.fontSize = '30px';
+      logo.style.fontSize = '30px';
+      nav.style.position = 'relative';
+      progressBar.classList.remove('page-progress-active');
     }
-  });
+
+    let scrollPersent = Math.round(window.scrollY / ( pageHeight - windowInsideHeight ) * 100);
+    
+    progressBar.style.width = scrollPersent + '%';
+  }
+
+  window.addEventListener('scroll', scrollEvent);
   
   const terms = document.querySelector('.terms');
 
@@ -241,8 +290,5 @@
       alert('더 이상 내릴수 없습니다.');
     }
   });
-
-  
-  
 </script>
 </html>

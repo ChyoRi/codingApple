@@ -7,13 +7,15 @@
 }
 
 .navbar {
-  position: fixed;
+  position: relative;
+  top: 20px;
   width: 100%;
   z-index: 5;
 }
 
 .navbar-brand {
   font-size: 30px;
+  transition: all 0.5s;
 }
 
 .list-group {
@@ -41,6 +43,10 @@
 .show-modal {
   visibility: visible;
   opacity: 1;
+}
+
+.show {
+  display: block;
 }
 
 .main-bg {
@@ -75,4 +81,26 @@
 
 .p-3 {
   flex-direction: row !important;
+}
+
+.terms {
+  width: 200px;
+  height: 100px;
+  margin-top: 20px;
+  overflow-y: scroll;
+}
+
+.page-progress {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 20px;
+  background-color: #000;
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.page-progress-active {
+  position: fixed;
 }
