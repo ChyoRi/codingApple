@@ -1,6 +1,7 @@
 const productsFrame = document.querySelectorAll('.container')[1];
-const productsWrap = document.querySelector('.row');
+const productsWrap = document.querySelector('.first');
 const moreBtn = document.querySelector('#more');
+const moreProductsWrap = document.querySelector('.second');
 
 const products = [
   { id: 0, price: 70000, title : 'Blossom Dress'},
@@ -38,14 +39,15 @@ const listCall = () => {
   .then(data => {
     console.log(data);
     data.forEach(item => {
-      const moreProductWrap = document.createElement('div');
-      moreProductWrap.innerHTML = `
+      let wrap = document.createElement('div');
+      wrap.classList.add('col-sm-4')
+      wrap.innerHTML = `
         <img src="https://via.placeholder.com/600" class="w-100">
         <h5>${item.title}</h5>
         <p>가격 : ${item.price}</p>
       `;
 
-      productsFrame.appendChild(moreProductWrap);
+      moreProductsWrap.appendChild(wrap);
     })
   }).catch(error => {
     console.log(error);
