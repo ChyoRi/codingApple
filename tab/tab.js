@@ -65,3 +65,10 @@ const formValue = (e) => {
 }
 
 clothForm.addEventListener('change', formValue);
+
+$.get('https://codingapple1.github.io/price.json')
+  .done(data => {
+    console.log(data.price);
+  }).fail(() => {
+    console.log('실패함');
+  });
