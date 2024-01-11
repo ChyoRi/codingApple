@@ -1,7 +1,6 @@
-const productsFrame = document.querySelectorAll('.container')[1];
-const productsWrap = document.querySelector('.first');
+const container = document.querySelectorAll('.container')[1];
+const productsWrap = document.querySelector('.row');
 const moreBtn = document.querySelector('#more');
-const moreProductsWrap = document.querySelector('.second');
 
 const products = [
   { id: 0, price: 70000, title : 'Blossom Dress'},
@@ -9,17 +8,47 @@ const products = [
   { id: 2, price: 60000, title : 'Black Monastery'}
 ];
 
-products.forEach(item => {
-  let wrap = document.createElement('div');
-  wrap.classList.add('col-sm-4');
-  wrap.innerHTML = `
-    <img src="https://via.placeholder.com/600" class="w-100">
-    <h5>${item.title}</h5>
-    <p>가격 : ${item.price}</p>
-  `;
+const print = (array) => {
+  array.forEach(item => {
+    let wrap = document.createElement('div');
+    wrap.classList.add('col-sm-4');
+    wrap.innerHTML = `
+      <img src="https://via.placeholder.com/600" class="w-100">
+      <h5>${item.title}</h5>
+      <p>가격 : ${item.price}</p>
+    `;
+  
+    productsWrap.appendChild(wrap);
+  });
+}
+ 
+let count = 0;
 
-  productsWrap.appendChild(wrap);
-});
+const listCall = () => {
+  if (count === 0) {
+    fetch('https://codingapple1.github.io/js/more1.json')
+    .then(res => res.json())
+    .then(data => {
+      print(data);
+    }).catch(error => {
+      console.log(error);
+    });
+  } else if (count === 1) {
+    fetch('https://codingapple1.github.io/js/more2.json')
+    .then(res => res.json())
+    .then(data => {
+      print(data);
+      container.classList.add('delete');
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  count += 1;
+}
+
+print(products);
+moreBtn.addEventListener('click', listCall);
 
 // products.forEach(item => {
 //   const productsTag = `
@@ -32,26 +61,3 @@ products.forEach(item => {
 
 //   productsWrap.insertAdjacentHTML('beforeend', productsTag);
 // });
-
-const listCall = () => {
-  fetch('https://codingapple1.github.io/js/more1.json')
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
-    data.forEach(item => {
-      let wrap = document.createElement('div');
-      wrap.classList.add('col-sm-4')
-      wrap.innerHTML = `
-        <img src="https://via.placeholder.com/600" class="w-100">
-        <h5>${item.title}</h5>
-        <p>가격 : ${item.price}</p>
-      `;
-
-      moreProductsWrap.appendChild(wrap);
-    })
-  }).catch(error => {
-    console.log(error);
-  });
-}
-
-moreBtn.addEventListener('click', listCall);

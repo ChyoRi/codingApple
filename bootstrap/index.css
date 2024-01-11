@@ -112,3 +112,7 @@
 .page-progress-active {
   position: fixed;
 }
+
+.delete {
+  display: none;
+}
