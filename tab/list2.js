@@ -61,3 +61,27 @@ moreBtn.addEventListener('click', listCall);
 
 //   productsWrap.insertAdjacentHTML('beforeend', productsTag);
 // });
+
+// const array1 = [7,3,5,2,40];
+// array1.sort();
+// console.log(array1);
+
+// const array2 = ['March', 'Jan', 'Feb', 'Dec'];
+// array2.sort();
+// console.log(array2);
+
+// const array1 = [7,3,5,2,40];
+// array1.sort((a,b) => {
+// 	return a - b;
+// });
+
+// console.log(array1);
+
+const array2 = ['b', 'c', 'd', 'e'];
+array2.sort((a, b) => {
+  if (a < b) return 1
+  if (a > b) return -1
+  if (a === b) return 0
+});
+
+console.log(array2);
