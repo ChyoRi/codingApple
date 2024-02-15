@@ -1,12 +1,52 @@
 const container = document.querySelectorAll('.container')[1];
 const productsWrap = document.querySelector('.row');
 const moreBtn = document.querySelector('#more');
+const priceSortBtn = document.querySelector('#price-sort');
+const characterSortBtn = document.querySelector('#character-sort');
+const characterSortReverseBtn = document.querySelector('#character-sort-reverse');
+const underBtn = document.querySelector('#under');
 
 const products = [
   { id: 0, price: 70000, title : 'Blossom Dress'},
   { id: 1, price: 50000, title : 'Springfield Shirt'},
   { id: 2, price: 60000, title : 'Black Monastery'}
 ];
+
+const priceSort = () => {
+  products.sort((a,b) => a.price - b.price);
+
+  productsWrap.innerHTML = '';
+  print(products);
+}
+
+const characterSort = () => {
+  products.sort((a,b) => {
+    if (a.title < b.title) return -1
+    if (a.title > b.title) return 1
+    if (a.title === b.title) return 0
+  });
+
+  productsWrap.innerHTML = '';
+  print(products);
+}
+
+const characterReverseSort = () => {
+  products.sort((a,b) => {
+    if (a.title < b.title) return 1
+    if (a.title > b.title) return -1
+    if (a.title === b.title) return 0
+  });
+
+  productsWrap.innerHTML = '';
+  print(products);
+}
+
+const priceFilter = () => {
+  let productsUnder = products.filter(item => item.price <= 60000);
+
+  productsWrap.innerHTML = '';
+  print(productsUnder);
+}
 
 const print = (array) => {
   array.forEach(item => {
@@ -49,6 +89,10 @@ const listCall = () => {
 
 print(products);
 moreBtn.addEventListener('click', listCall);
+priceSortBtn.addEventListener('click', priceSort);
+characterSortBtn.addEventListener('click', characterSort);
+characterSortReverseBtn.addEventListener('click', characterReverseSort);
+underBtn.addEventListener('click', priceFilter);
 
 // products.forEach(item => {
 //   const productsTag = `
@@ -77,11 +121,18 @@ moreBtn.addEventListener('click', listCall);
 
 // console.log(array1);
 
+
 const array2 = ['b', 'c', 'd', 'e'];
-array2.sort((a, b) => {
-  if (a < b) return 1
-  if (a > b) return -1
+// array2.sort((a, b) => {
+//   if (a < b) return 1
+//   if (a > b) return -1
+//   if (a === b) return 0
+// });
+
+array2.sort((a,b) => {
+  if (a < b) return -1
+  if (a > b) return 1
   if (a === b) return 0
-});
+})
 
 console.log(array2);
