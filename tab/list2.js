@@ -5,6 +5,8 @@ const priceSortBtn = document.querySelector('#price-sort');
 const characterSortBtn = document.querySelector('#character-sort');
 const characterSortReverseBtn = document.querySelector('#character-sort-reverse');
 const underBtn = document.querySelector('#under');
+const priceInput = document.querySelector('#price-filter-input');
+const refrashBtn = document.querySelector('#refresh');
 
 const products = [
   { id: 0, price: 70000, title : 'Blossom Dress'},
@@ -12,33 +14,43 @@ const products = [
   { id: 2, price: 60000, title : 'Black Monastery'}
 ];
 
+const productsCopy = [...products];
+
 const priceSort = () => {
-  products.sort((a,b) => a.price - b.price);
+  productsCopy.sort((a,b) => a.price - b.price);
 
   productsWrap.innerHTML = '';
-  print(products);
+  print(productsCopy);
 }
 
 const characterSort = () => {
-  products.sort((a,b) => {
+  productsCopy.sort((a,b) => {
     if (a.title < b.title) return -1
     if (a.title > b.title) return 1
     if (a.title === b.title) return 0
   });
 
   productsWrap.innerHTML = '';
-  print(products);
+  print(productsCopy);
 }
 
 const characterReverseSort = () => {
-  products.sort((a,b) => {
+  productsCopy.sort((a,b) => {
     if (a.title < b.title) return 1
     if (a.title > b.title) return -1
     if (a.title === b.title) return 0
   });
 
   productsWrap.innerHTML = '';
-  print(products);
+  print(productsCopy);
+}
+
+const priceInputFilter = () => {
+  let value = priceInput.value;
+  let filterProducts = products.filter(item => item.price <= value);
+
+  productsWrap.innerHTML = '';
+  print(filterProducts);
 }
 
 const priceFilter = () => {
@@ -46,6 +58,11 @@ const priceFilter = () => {
 
   productsWrap.innerHTML = '';
   print(productsUnder);
+}
+
+const refrash = () => {
+  productsWrap.innerHTML = '';
+  print(products);
 }
 
 const print = (array) => {
@@ -56,6 +73,7 @@ const print = (array) => {
       <img src="https://via.placeholder.com/600" class="w-100">
       <h5>${item.title}</h5>
       <p>가격 : ${item.price}</p>
+      <button class="buy">구매</button>
     `;
   
     productsWrap.appendChild(wrap);
@@ -93,6 +111,8 @@ priceSortBtn.addEventListener('click', priceSort);
 characterSortBtn.addEventListener('click', characterSort);
 characterSortReverseBtn.addEventListener('click', characterReverseSort);
 underBtn.addEventListener('click', priceFilter);
+priceInput.addEventListener('input', priceInputFilter);
+refrashBtn.addEventListener('click', refrash);
 
 // products.forEach(item => {
 //   const productsTag = `
