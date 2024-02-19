@@ -73,11 +73,42 @@ const print = (array) => {
       <img src="https://via.placeholder.com/600" class="w-100">
       <h5>${item.title}</h5>
       <p>가격 : ${item.price}</p>
-      <button class="buy">구매</button>
+      <button id="buy" class="btn btn-primary">구매</button>
     `;
   
     productsWrap.appendChild(wrap);
   });
+
+  const buyBtn = document.querySelectorAll('#buy');
+  
+  const itemTitle = (e) => {
+    let target = e.currentTarget;
+    let targetTitle = target.previousElementSibling.previousElementSibling;
+    let titleText = targetTitle.textContent;
+    shopBasket(titleText);
+  }
+
+  buyBtn.forEach(item => {
+    item.addEventListener('click', itemTitle)
+  })
+  
+}
+
+const shopBasket = (titleText) => {
+  let storageCheck = window.localStorage.getItem('cart');
+  
+  if(storageCheck) {
+    let basket = JSON.parse(storageCheck);
+    let existItem = basket.find(item => item === titleText);
+
+    if(existItem) return;
+
+    basket.push(titleText);
+    window.localStorage.setItem('cart', JSON.stringify(basket));
+  } else {
+    window.localStorage.setItem('cart', JSON.stringify([titleText]));
+  }
+
 }
  
 let count = 0;

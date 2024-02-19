@@ -7,8 +7,23 @@
 </head>
 <body>
   <div>장바구니</div>
-  <p>상품 1</p>
-  <p>상품 2</p>
-  <p>상품 3</p>
 </body>
+<script>
+  const basket = document.querySelector('div');
+  const cart = () => {
+    let cartArray = JSON.parse(window.localStorage.getItem('cart'));
+    
+    basket.innerHTML = '';
+    basket.innerText = '장바구니';
+    
+    cartArray.forEach(item => {
+      const cartTag = `<p>${item}</p>`;
+
+      basket.insertAdjacentHTML('beforeend', cartTag);
+    })
+
+  }
+
+  cart();
+</script>
 </html>
