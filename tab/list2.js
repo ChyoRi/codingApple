@@ -9,9 +9,9 @@ const priceInput = document.querySelector('#price-filter-input');
 const refrashBtn = document.querySelector('#refresh');
 
 const products = [
-  { id: 0, price: 70000, title : 'Blossom Dress'},
-  { id: 1, price: 50000, title : 'Springfield Shirt'},
-  { id: 2, price: 60000, title : 'Black Monastery'}
+  { id: 0, price: 70000, title: 'Blossom Dress', count: 0},
+  { id: 1, price: 50000, title: 'Springfield Shirt', count: 0},
+  { id: 2, price: 60000, title: 'Black Monastery', count: 0}
 ];
 
 const productsCopy = [...products];
@@ -73,7 +73,7 @@ const print = (array) => {
       <img src="https://via.placeholder.com/600" class="w-100">
       <h5>${item.title}</h5>
       <p>가격 : ${item.price}</p>
-      <button id="buy" class="btn btn-primary">구매</button>
+      <button id="buy" data-id="${item.id}"class="btn btn-primary">구매</button>
     `;
   
     productsWrap.appendChild(wrap);
@@ -85,6 +85,10 @@ const print = (array) => {
     let target = e.currentTarget;
     let targetTitle = target.previousElementSibling.previousElementSibling;
     let titleText = targetTitle.textContent;
+    let targetId = target.getAttribute('data-id');
+    let targetObject = array.find(item => item.id == targetId);
+    targetObject.count += 1;
+    console.log(targetObject);
     shopBasket(titleText);
   }
 
@@ -93,6 +97,8 @@ const print = (array) => {
   })
   
 }
+
+// 중복 안되게 1개씩
 
 const shopBasket = (titleText) => {
   let storageCheck = window.localStorage.getItem('cart');
@@ -110,6 +116,10 @@ const shopBasket = (titleText) => {
   }
 
 }
+
+// const shopBasket = (titleText, count) => {
+//   let storageCheck = window.localStorage.getItem('cart');
+// }
  
 let count = 0;
 
