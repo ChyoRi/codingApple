@@ -9,12 +9,31 @@ const priceInput = document.querySelector('#price-filter-input');
 const refrashBtn = document.querySelector('#refresh');
 
 const products = [
-  { id: 0, price: 70000, title: 'Blossom Dress', count: 0},
-  { id: 1, price: 50000, title: 'Springfield Shirt', count: 0},
-  { id: 2, price: 60000, title: 'Black Monastery', count: 0}
+  { id: 0, price: 70000, title: 'Blossom Dress', count: 1},
+  { id: 1, price: 50000, title: 'Springfield Shirt', count: 1},
+  { id: 2, price: 60000, title: 'Black Monastery', count: 1}
 ];
 
 const productsCopy = [...products];
+
+const getStorageArray = (key) => {
+  let json = window.localStorage.getItem(key);
+  
+  if(!json) return [];
+
+  return JSON.parse(json);
+}
+
+const setStorageArray = (key, id, name, value) => {
+  let arr = getStorageArray(key);
+
+  arr = arr.map(item => {
+    if(item.id != id) return item
+    return {...item, [name]: value}
+  });
+
+  window.localStorage.setItem(key, JSON.stringify(arr));
+}
 
 const priceSort = () => {
   productsCopy.sort((a,b) => a.price - b.price);
@@ -45,9 +64,11 @@ const characterReverseSort = () => {
   print(productsCopy);
 }
 
-const priceInputFilter = () => {
-  let value = priceInput.value;
-  let filterProducts = products.filter(item => item.price <= value);
+const priceInputFilter = (e) => {
+  let value = e.target.value;
+  let filterProducts = products.filter(item => {
+    return JSON.stringify(item).indexOf(value) > -1
+  });
 
   productsWrap.innerHTML = '';
   print(filterProducts);
@@ -83,13 +104,19 @@ const print = (array) => {
   
   const itemTitle = (e) => {
     let target = e.currentTarget;
-    let targetTitle = target.previousElementSibling.previousElementSibling;
-    let titleText = targetTitle.textContent;
     let targetId = target.getAttribute('data-id');
-    let targetObject = array.find(item => item.id == targetId);
-    targetObject.count += 1;
-    console.log(targetObject);
-    shopBasket(titleText);
+    let arr = getStorageArray('cart');
+    let localFind = arr.find(item => item.id == targetId);
+    console.log(localFind);
+    let targetFind = products.find(item => item.id == targetId);
+    console.log(targetFind);
+
+    if(!localFind) {
+      window.localStorage.setItem('cart', JSON.stringify([...arr, targetFind]));
+      return;
+    }
+
+    setStorageArray('cart', targetId, 'count', Number(localFind.count) + 1);
   }
 
   buyBtn.forEach(item => {
@@ -100,25 +127,47 @@ const print = (array) => {
 
 // 중복 안되게 1개씩
 
-const shopBasket = (titleText) => {
-  let storageCheck = window.localStorage.getItem('cart');
+// const shopBasket = (titleText) => {
+//   let storageCheck = window.localStorage.getItem('cart');
   
-  if(storageCheck) {
-    let basket = JSON.parse(storageCheck);
-    let existItem = basket.find(item => item === titleText);
+//   if(storageCheck) {
+//     let basket = JSON.parse(storageCheck);
+//     let existItem = basket.find(item => item === titleText);
 
-    if(existItem) return;
+//     if(existItem) return;
 
-    basket.push(titleText);
-    window.localStorage.setItem('cart', JSON.stringify(basket));
-  } else {
-    window.localStorage.setItem('cart', JSON.stringify([titleText]));
-  }
+//     basket.push(titleText);
+//     window.localStorage.setItem('cart', JSON.stringify(basket));
+//   } else {
+//     window.localStorage.setItem('cart', JSON.stringify([titleText]));
+//   }
 
-}
+// }
+
+// 중복 될때 카운트
 
 // const shopBasket = (titleText, count) => {
 //   let storageCheck = window.localStorage.getItem('cart');
+
+//   if(storageCheck) {
+//     let basket = JSON.parse(storageCheck);
+//     let existItem = basket.find(item => item.title === titleText);
+
+//     let basketItem = {
+//       title: titleText,
+//       count: count
+//     }
+
+//     // if(existItem) {
+//     //   basket.Item.count += 1;
+//     // }
+
+//     basket.push(basketItem);
+//     window.localStorage.setItem('cart', JSON.stringify(basket));
+//   } else {
+//     window.localStorage.setItem('cart', JSON.stringify([{title: titleText, count : count}]));
+//   }
+  
 // }
  
 let count = 0;
