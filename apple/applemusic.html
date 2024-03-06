@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../alert-box/main.css">
+</head>
+<body>
+  <div class="card-background">
+    <div class="card-box">
+      <img src="./card1.png" alt="">
+    </div>
+    <div class="card-box">
+      <img src="./card2.png" alt="">
+    </div>
+    <div class="card-box">
+      <img src="./card3.png" alt="">
+    </div>
+  </div>
+</body>
+<script>
+  const cardBox = document.querySelectorAll('.card-box');
+
+  const scrollFn = () => {
+    let scrollHeight = window.scrollY;
+    y = ( -1 / 500 ) * scrollHeight + ( 115 / 50 );
+    cardBox[0].style.opacity = y;
+  } 
+
+  window.addEventListener('scroll', scrollFn);
+</script>
+</html>

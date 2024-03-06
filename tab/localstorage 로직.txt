@@ -1,0 +1,33 @@
+1.  print함수를 호출하면서 products배열을 인자로 넘김
+
+2. products배열이 forEach로 돌면서 HTML을 그림
+
+3. 그린 HTML에서 구매버튼을 클릭하면 itemTitle함수가 실행
+
+4. 구매버튼 클릭한 해당 버튼의 data-id를 가져옴
+
+5. getStorageArray()의 return값을 arr에 담음 localStorage에 데이터가 없
+    으면 [] 을 반환 데이터가 있을경우 localStorage를 파싱함
+
+6. localFind가 있을 경우와 없을 경우
+
+    없을 경우 ( localStorage에 데이터가 없을 경우 최초 1 번 )
+
+    setItem으로 'cart'라는 키값으로 구매버튼 id와 products배열의 id가 일치
+
+    하는 객체를 저장함 
+
+    있을 경우 ( localStorage에 데이터가 있을 경우 )
+
+    setStorageArray함수를 호출하면서 key, id, name, value를 인자로 넘김
+
+    localStorage에 담겨있던걸 꺼내서 파싱 후 arr에 담고 꺼낸것과 구매버튼
+  
+    id가 일치하지 않으면 꺼낸걸 그대로 return하고 일치한다면 count를 +1 추
+ 
+    가 한걸로 덮어씌워서 localStorage에 담음
+
+    
+
+    
+

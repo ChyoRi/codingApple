@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<style>
+  .item {
+    display: flex;
+  }
+
+  .item p:first-of-type {
+    margin-right: 20px;
+  }
+</style>
 <body>
   <div>장바구니</div>
 </body>
@@ -12,12 +21,18 @@
   const basket = document.querySelector('div');
   const cart = () => {
     let cartArray = JSON.parse(window.localStorage.getItem('cart'));
+    console.log(cartArray);
     
     basket.innerHTML = '';
     basket.innerText = '장바구니';
     
     cartArray.forEach(item => {
-      const cartTag = `<p>${item}</p>`;
+      const cartTag = `
+        <div class="item">
+          <p>상품명 : ${item.title}</p>
+          <p>갯수 : ${item.count}</p>
+        </div>
+      `;
 
       basket.insertAdjacentHTML('beforeend', cartTag);
     })
