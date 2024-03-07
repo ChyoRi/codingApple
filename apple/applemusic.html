@@ -24,8 +24,12 @@
 
   const scrollFn = () => {
     let scrollHeight = window.scrollY;
-    y = ( -1 / 500 ) * scrollHeight + ( 115 / 50 );
+
+    let y = ( -1 / 500 ) * scrollHeight + ( 115 / 50 );
+    let z = ( -1 / 5000 ) * scrollHeight + ( 565 / 500 );
+    
     cardBox[0].style.opacity = y;
+    cardBox[0].style.transform = `scale( ${z} )`;
   } 
 
   window.addEventListener('scroll', scrollFn);

@@ -80,13 +80,13 @@
   <div style="overflow: hidden;">
     <div class="slide-container">
       <div class="slide-box">
-        <img src="./images/car1.png" alt="첫 번째 이미지">
+        <img src="./images/car1.png" alt="첫 번째 이미지" draggable="false">
       </div>
       <div class="slide-box">
-        <img src="./images/car2.png" alt="두 번째 이미지">
+        <img src="./images/car2.png" alt="두 번째 이미지" draggable="false">
       </div>
       <div class="slide-box">
-        <img src="./images/car3.png" alt="세 번째 이미지">
+        <img src="./images/car3.png" alt="세 번째 이미지" draggable="false">
       </div>
     </div>
   </div>
@@ -214,27 +214,28 @@
   let slideCount = 0;
 
   const slideContainer = document.querySelector('.slide-container');
+  const slideWrap = document.querySelectorAll('.slide-box');
   const slideBtn1 = document.querySelector('.slide-1');
   const slideBtn2 = document.querySelector('.slide-2');
   const slideBtn3 = document.querySelector('.slide-3');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
-
+  
   slideBtn1.addEventListener('click', function(){
     slideCount = 0;
     slideContainer.style.translate = '0 0';
   });
-
+  
   slideBtn2.addEventListener('click', function(){
     slideCount = 1;
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
   });
-
+  
   slideBtn3.addEventListener('click', function(){
     slideCount = 2;
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
   });
-
+  
   prevBtn.addEventListener('click', function() {
     slideCount -= 1;
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
@@ -242,7 +243,25 @@
       slideContainer.style.translate = '-200vw 0';
       slideCount = 3;
     }
-  })
+  });
+  
+  let startX;
+  let endX;
+
+  slideWrap.forEach(item => {
+    item.addEventListener('mousedown', (e) => {
+      startX = e.clientX;
+      console.log(startX);
+    });
+  });
+
+  slideWrap.forEach(item => {
+    item.addEventListener('mouseup', (e) => {
+      endX = e.clientX;
+      console.log(endX);
+    });
+  });
+
 
   nextBtn.addEventListener('click', function(){
     slideCount += 1;
@@ -266,6 +285,7 @@
       logo.style.fontSize = '16px';
       nav.style.position = 'fixed';
       nav.style.top = '20px';
+      nav.style.zIndex = 999;
       progressBar.classList.add('page-progress-active');
     } else {
       logo.style.fontSize = '30px';
