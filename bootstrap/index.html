@@ -214,7 +214,6 @@
   let slideCount = 0;
 
   const slideContainer = document.querySelector('.slide-container');
-  const slideWrap = document.querySelectorAll('.slide-box');
   const slideBtn1 = document.querySelector('.slide-1');
   const slideBtn2 = document.querySelector('.slide-2');
   const slideBtn3 = document.querySelector('.slide-3');
@@ -245,22 +244,30 @@
     }
   });
   
-  let startX;
-  let endX;
+  let startX = 0;
+  let mouseMove;
+  let activeMouseDown;
 
-  slideWrap.forEach(item => {
-    item.addEventListener('mousedown', (e) => {
-      startX = e.clientX;
-      console.log(startX);
-    });
+  slideContainer.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    activeMouseDown = true;
+    console.log(activeMouseDown);
   });
 
-  slideWrap.forEach(item => {
-    item.addEventListener('mouseup', (e) => {
-      endX = e.clientX;
-      console.log(endX);
-    });
+  slideContainer.addEventListener('mousemove', (e) => {
+    let moveX = e.clientX;
+    if(activeMouseDown) {
+      console.log('작동함');
+      let calcX = startX - moveX;
+      console.log(calcX);
+      slideContainer.style.translate = `-${calcX}px 0`;
+    } return;
   });
+
+  slideContainer.addEventListener('mouseup', (e) => {
+    activeMouseDown = false;
+    console.log(activeMouseDown);
+  })
 
 
   nextBtn.addEventListener('click', function(){
