@@ -69,7 +69,10 @@
 
 .slide-container {
   width: 300vw;
-  transition: all 1s;
+}
+
+.slide-container.transition {
+  transition: all 0.5s;
 }
 
 .slide-container::after {

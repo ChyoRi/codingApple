@@ -222,17 +222,35 @@
   
   slideBtn1.addEventListener('click', function(){
     slideCount = 0;
+    slideContainer.classList.add('transition');
     slideContainer.style.translate = '0 0';
+
+    setTimeout(() => {
+      slideContainer.classList.remove('transition');
+    }, 500);
+
   });
   
   slideBtn2.addEventListener('click', function(){
     slideCount = 1;
+    slideContainer.classList.add('transition');
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
+
+    setTimeout(() => {
+      slideContainer.classList.remove('transition');
+    }, 500);
+
   });
   
   slideBtn3.addEventListener('click', function(){
     slideCount = 2;
+    slideContainer.classList.add('transition');
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
+
+    setTimeout(() => {
+      slideContainer.classList.remove('transition');
+    }, 500);
+
   });
   
   prevBtn.addEventListener('click', function() {
@@ -243,32 +261,6 @@
       slideCount = 3;
     }
   });
-  
-  let startX = 0;
-  let mouseMove;
-  let activeMouseDown;
-
-  slideContainer.addEventListener('mousedown', (e) => {
-    startX = e.clientX;
-    activeMouseDown = true;
-    console.log(activeMouseDown);
-  });
-
-  slideContainer.addEventListener('mousemove', (e) => {
-    let moveX = e.clientX;
-    if(activeMouseDown) {
-      console.log('작동함');
-      let calcX = startX - moveX;
-      console.log(calcX);
-      slideContainer.style.translate = `-${calcX}px 0`;
-    } return;
-  });
-
-  slideContainer.addEventListener('mouseup', (e) => {
-    activeMouseDown = false;
-    console.log(activeMouseDown);
-  })
-
 
   nextBtn.addEventListener('click', function(){
     slideCount += 1;
@@ -278,6 +270,91 @@
       slideCount = 0;
     }
   });
+  
+  let startX;
+  let activeMouseDown = false;
+  let calcX;
+
+  console.log(slideContainer.style.translate);
+  console.log(slideContainer.style.translate.length);
+  console.log(typeof(slideContainer.style.translate));
+
+  slideContainer.addEventListener('mousedown', (e) => {
+    console.log(slideContainer.style.translate);
+
+    startX = e.clientX;
+    activeMouseDown = true;
+  });
+
+  slideContainer.addEventListener('mousemove', (e) => {
+    console.log(slideContainer.style.translate);
+
+    moveX = e.clientX;
+
+    if(slideContainer.style.translate == '') return;
+
+    if(activeMouseDown) {
+      calcX = moveX - startX;
+      slideContainer.style.translate = `${calcX}px 0`;
+    }
+
+  });
+
+  slideContainer.addEventListener('mouseup', (e) => {
+    console.log(slideContainer.style.translate);
+    
+    activeMouseDown = false;
+
+    if(calcX < -400) {
+      slideContainer.classList.add('transition');
+      slideContainer.style.translate = `-100vw 0`;
+    } else {
+      slideContainer.classList.add('transition');
+      slideContainer.style.translate = `0 0`;
+    }
+
+    setTimeout(() => {
+      slideContainer.classList.remove('transition');
+    }, 500)
+
+  });
+
+  let mobileStartX;
+  let mobileActiveMouseDown = false;
+  let mobileCalcX;
+
+  slideContainer.addEventListener('touchstart', (e) => {
+    mobileStartX = e.touches[0].clientX;
+    mobileActiveMouseDown = true;
+  });
+
+  slideContainer.addEventListener('touchmove', (e) => {
+    moveX = e.touches[0].clientX;
+
+    if(mobileActiveMouseDown) {
+      mobileCalcX = moveX - mobileStartX;
+      slideContainer.style.translate = `${mobileCalcX}px 0`;
+    }
+
+  });
+
+  slideContainer.addEventListener('touchend', (e) => {
+    mobileActiveMouseDown = false;
+
+    if(calcX < -400) {
+      slideContainer.classList.add('transition');
+      slideContainer.style.translate = `-100vw 0`;
+    } else {
+      slideContainer.classList.add('transition');
+      slideContainer.style.translate = `0 0`;
+    }
+
+    setTimeout(() => {
+      slideContainer.classList.remove('transition');
+    }, 500)
+
+  });
+  
 
   const progressBar = document.querySelector('.page-progress');
   const page = document.querySelector('html');
