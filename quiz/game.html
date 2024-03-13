@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h4>물에 빠지면 누구먼저 구할 것임?</h4>
+  <button>와이프</button>
+  <button>부모님</button>
+  <button>키우던 개</button>
+</body>
+<script>
+  const btns = document.querySelectorAll('button');
+
+  const question = (e) => {
+    let target = e.currentTarget;
+    let targetText = target.textContent;
+    
+    switch(targetText) {
+      case '와이프':
+        alert('와이프가 가장 중요하군요');
+        break;
+      case '부모님':
+        alert('효심이 가득하군요');
+        break;
+      default:
+        alert('사람보다 개가 중요하군요');
+        break;
+      
+    }
+  }
+
+  btns.forEach(item => {
+    item.addEventListener('click', question);
+  });
+</script>
+</html>

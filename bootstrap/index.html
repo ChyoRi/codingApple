@@ -275,23 +275,17 @@
   let activeMouseDown = false;
   let calcX;
 
-  console.log(slideContainer.style.translate);
-  console.log(slideContainer.style.translate.length);
-  console.log(typeof(slideContainer.style.translate));
-
   slideContainer.addEventListener('mousedown', (e) => {
-    console.log(slideContainer.style.translate);
 
     startX = e.clientX;
     activeMouseDown = true;
   });
 
   slideContainer.addEventListener('mousemove', (e) => {
-    console.log(slideContainer.style.translate);
 
     moveX = e.clientX;
 
-    if(slideContainer.style.translate == '') return;
+    if(slideContainer.style.translate == '' || slideContainer.style.translate == '0px') return;
 
     if(activeMouseDown) {
       calcX = moveX - startX;
@@ -396,5 +390,6 @@
       alert('더 이상 내릴수 없습니다.');
     }
   });
+  
 </script>
 </html>
