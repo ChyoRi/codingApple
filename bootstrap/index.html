@@ -256,24 +256,29 @@
   prevBtn.addEventListener('click', function() {
     slideCount -= 1;
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
+
     if (slideCount < 0) {
       slideContainer.style.translate = '-200vw 0';
       slideCount = 3;
     }
+
   });
 
   nextBtn.addEventListener('click', function(){
     slideCount += 1;
     slideContainer.style.translate = `${slideCount * -100}vw 0`;
+
     if (slideCount === 3) {
       slideContainer.style.translate = '0 0';
       slideCount = 0;
     }
+
   });
   
   let startX;
   let activeMouseDown = false;
   let calcX;
+  let translateX = slideContainer.style.translate;
 
   slideContainer.addEventListener('mousedown', (e) => {
 
@@ -285,26 +290,49 @@
 
     moveX = e.clientX;
 
-    if(slideContainer.style.translate == '' || slideContainer.style.translate == '0px') return;
-
+    
     if(activeMouseDown) {
       calcX = moveX - startX;
-      slideContainer.style.translate = `${calcX}px 0`;
+      slideContainer.style.translate = `${translateX + calcX}px 0`;
+      if(slideCount === 0 && calcX > 0) return; 
     }
 
   });
 
   slideContainer.addEventListener('mouseup', (e) => {
     console.log(slideContainer.style.translate);
+    console.log(slideCount);
     
     activeMouseDown = false;
 
+    if(calcX === 0) return;
+
     if(calcX < -400) {
+      slideCount += 1;
       slideContainer.classList.add('transition');
-      slideContainer.style.translate = `-100vw 0`;
+      slideContainer.style.translate = `${slideCount * -100}vw 0`;
+
+      if (slideCount === 2) {
+        slideContainer.style.translate = '0 0';
+        slideCount = 0;
+      }
     } else {
       slideContainer.classList.add('transition');
-      slideContainer.style.translate = `0 0`;
+      slideContainer.style.translate = `${slideCount * -100}vw 0`;
+    }
+
+    if (calcX > 400) {
+      slideCount -= 1
+      slideContainer.classList.add('transition');
+      slideContainer.style.translate = `${slideCount * -100}vw 0`;
+
+      if (slideCount < 0) {
+        slideContainer.style.translate = '-200vw 0';
+        slideCount = 2;
+      }
+    } else {
+      slideContainer.classList.add('transition');
+      slideContainer.style.translate = `${slideCount * -100}vw 0`;
     }
 
     setTimeout(() => {

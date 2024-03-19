@@ -1,4 +1,5 @@
 const productWrap = document.querySelector('.products-list');
+const productInput = document.querySelector('.products-frame input');
 
 const print = (array) => {
   array.forEach(item => {
@@ -16,13 +17,23 @@ const print = (array) => {
 
 }
 
+const productsSearch = (e, data) => {
+  let value = e.target.value;
+  let filterProducts = products.filter(item => {
+    return JSON.stringify(item).indexOf(value) > -1
+  });
+
+  productWrap.innerHTML = '';
+  print(filterProducts);
+}
+
 const getProductsList = () => {
   fetch('./store.json')
   .then(res => res.json())
   .then(data => {
     print(data.products);
-    console.log(data.products);
   })
 }
 
 getProductsList();
+productInput.addEventListener('input', productsSearch);
