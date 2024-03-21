@@ -1,7 +1,11 @@
 const productWrap = document.querySelector('.products-list');
 const productInput = document.querySelector('.products-frame input');
 
+let productArray = [];
+
 const print = (array) => {
+  productWrap.innerHTML = '';
+
   array.forEach(item => {
     const products = document.createElement('li');
     products.classList.add('products-item');
@@ -17,13 +21,13 @@ const print = (array) => {
 
 }
 
-const productsSearch = (e, data) => {
+const productsSearch = (e) => {
   let value = e.target.value;
-  let filterProducts = products.filter(item => {
-    return JSON.stringify(item).indexOf(value) > -1
+  let filterProducts = productArray.filter(item => {
+    // return JSON.stringify(item).indexOf(value) > -1
+    return item.title.indexOf(value) > -1
   });
 
-  productWrap.innerHTML = '';
   print(filterProducts);
 }
 
@@ -31,7 +35,8 @@ const getProductsList = () => {
   fetch('./store.json')
   .then(res => res.json())
   .then(data => {
-    print(data.products);
+    productArray = data?.products ?? []
+    print(productArray);
   })
 }
 
